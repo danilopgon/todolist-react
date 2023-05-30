@@ -6,12 +6,11 @@ import TaskCounter from "./components/TaskCounter/TaskCounter";
 import React, { useState } from "react";
 
 function App() {
-  const [todoList, setTodoList] = useState(["Sacar al perro", "Hacer la cena"]);
+  const [todoList, setTodoList] = useState([
+    { id: 1, taskName: "Sacar al perro" },
+  ]);
 
-  const handleDeleteButton = (key) => {
-    const newTodoList = todoList.filter((_, i) => i !== key);
-    setTodoList(newTodoList);
-  };
+  const handleDeleteButton = (id) => {};
 
   return (
     <div className="App">
@@ -19,13 +18,13 @@ function App() {
       <div className="container">
         <Input />
         <ul>
-          {todoList.map((task, key) => {
+          {todoList.map((task) => {
             return (
               <Task
                 task={task}
-                key={key}
+                key={}
                 onClick={() => {
-                  handleDeleteButton(key);
+                  handleDeleteButton(id);
                 }}
               />
             );

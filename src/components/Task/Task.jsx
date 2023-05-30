@@ -1,8 +1,8 @@
 const Task = ({ task, onClick }) => {
   return (
-    <li>
+    <li className="task">
       {task}
-      <span onClick={onClick}>X</span>
+      <button onClick={onClick}>X</button>
     </li>
   );
 };
