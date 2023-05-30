@@ -8,7 +8,11 @@ import React, { useState } from "react";
 function App() {
   const [todoList, setTodoList] = useState(["Sacar al perro", "Hacer la cena"]);
 
-  
+  const handleDeleteButton = (key) => {
+    const newTodoList = todoList.filter((_, i) => i !== key);
+    setTodoList(newTodoList);
+  };
+
   return (
     <div className="App">
       <h1>ToDo list</h1>
@@ -16,7 +20,15 @@ function App() {
         <Input />
         <ul>
           {todoList.map((task, key) => {
-            return <Task task={task} key={key} />;
+            return (
+              <Task
+                task={task}
+                key={key}
+                onClick={() => {
+                  handleDeleteButton(key);
+                }}
+              />
+            );
           })}
         </ul>
         <TaskCounter />
