@@ -8,23 +8,27 @@ import React, { useState } from "react";
 function App() {
   const [todoList, setTodoList] = useState([
     { id: 1, taskName: "Sacar al perro" },
+    { id: 2, taskName: "Hacer la cena" },
   ]);
 
-  const handleDeleteButton = (id) => {};
+  const handleDeleteButton = (id) => {
+    const updatedList = todoList.filter((task) => task.id !== id);
+    setTodoList(updatedList);
+  };
 
   return (
     <div className="App">
-      <h1>ToDo list</h1>
+      <h1>{todoList.length > 0 ? "To Do List" : "No tasks, add a task"}</h1>
       <div className="container">
         <Input />
         <ul>
           {todoList.map((task) => {
             return (
               <Task
-                task={task}
-                key={}
+                task={task.taskName}
+                key={task.id}
                 onClick={() => {
-                  handleDeleteButton(id);
+                  handleDeleteButton(task.id);
                 }}
               />
             );
