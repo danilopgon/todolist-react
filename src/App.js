@@ -42,8 +42,8 @@ function App() {
     const taskIndex = updatedList.findIndex((task) => task.id === id);
 
     if (taskIndex !== -1) {
-      const newTaskName = prompt("Enter the new task name:");
-      if (newTaskName) {
+      const newTaskName = prompt("Enter the new task name:").trim();
+      if (newTaskName.length > 0) {
         updatedList[taskIndex].taskName = newTaskName;
         setTodoList(updatedList);
       }
