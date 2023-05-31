@@ -1,13 +1,14 @@
-const Input = () => {
+/* eslint-disable react/prop-types */
+import React from "react";
 
-
-  const handleSubmit = (event) => {
-    event.preventDefault();
-  };
-
+const Input = ({ onSubmit, onChange, value }) => {
   return (
-    <form onSubmit={handleSubmit}>
-      <input placeholder="What needs to be done?"></input>
+    <form onSubmit={onSubmit}>
+      <input
+        onChange={onChange}
+        value={value}
+        placeholder="What needs to be done?"
+      ></input>
     </form>
   );
 };
