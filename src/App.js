@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./App.css";
 import styled from "styled-components";
 
@@ -45,11 +45,46 @@ const ListContainer = styled.ul`
 `;
 
 function App() {
-  const [todoList, setTodoList] = useState([
-    { id: 1, taskName: "Sacar al perro" },
-    { id: 2, taskName: "Hacer la cena" },
-  ]);
+  const [todoList, setTodoList] = useState([]);
   const [taskValue, setTaskValue] = useState("");
+
+  useEffect(() => {
+    fetch("https://assets.breatheco.de/apis/fake/todos/user/danilopgon")
+      .then((response) => response.json())
+      .then((response) => {
+        console.log(response);
+        return setTodoList(response);
+      })
+      .catch((error) => {
+        //manejo de errores
+        console.log(error);
+      });
+  }, []);
+
+  useEffect(() => {
+    if (todoList.length > 0) {
+      fetch("https://assets.breatheco.de/apis/fake/todos/user/danilopgon", {
+        method: "PUT",
+        body: JSON.stringify(todoList),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      })
+        .then((resp) => {
+          console.log(resp.ok); // Será true (verdad) si la respuesta es exitosa.
+          console.log(resp.status); // el código de estado = 200 o código = 400 etc.
+          return resp.json(); // (regresa una promesa) will try to parse the result as json as return a promise that you can .then for results
+        })
+        .then((data) => {
+          //Aquí es donde debe comenzar tu código después de que finalice la búsqueda
+          console.log(data); //esto imprimirá en la consola el objeto exacto recibido del servidor
+        })
+        .catch((error) => {
+          //manejo de errores
+          console.log(error);
+        });
+    }
+  }, [todoList]);
 
   const handleUserInput = (event) => {
     const newTask = event.target.value;
