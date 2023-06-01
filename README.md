@@ -4,10 +4,11 @@
 
 4 Geeks Academy To Do List project made with React + Styled Components
 
-This project has two versions:
+## This project has two versions:
 
-Main branch - With edit functions and more advanced styles
-Fetch branch - Branch to practice Fetch with the [4 Geeks API](http://assets.breatheco.de/apis/fake/todos/)
+### Main branch - With edit functions and more advanced styles
+
+### Fetch branch - Branch to practice Fetch with the [4 Geeks API](http://assets.breatheco.de/apis/fake/todos/)
 
 ## Getting Started with Create React App
 
