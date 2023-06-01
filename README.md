@@ -1,7 +1,7 @@
 ### todolist-react
 # A simple To Do List with React + Styled Components
 
-4 Geeks Academy To Do List project made React + Styled Components
+4 Geeks Academy To Do List project made with React + Styled Components
 
 ## Getting Started with Create React App
 
