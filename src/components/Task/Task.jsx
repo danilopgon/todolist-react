@@ -2,23 +2,9 @@
 import React from "react";
 import styled from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPencil, faTrash } from "@fortawesome/free-solid-svg-icons";
+import { faTrash } from "@fortawesome/free-solid-svg-icons";
 
 const DeleteButton = styled.button`
-  visibility: hidden;
-  color: #ffd808;
-  font-size: 1.5rem;
-  line-height: 2rem;
-  margin-left: 0.5rem;
-  background-color: transparent;
-  border: none;
-
-  &:hover {
-    color: white;
-  }
-`;
-
-const EditButton = styled.button`
   visibility: hidden;
   color: #ffd808;
   font-size: 1.5rem;
@@ -47,19 +33,12 @@ const StyledTask = styled.li`
   &:hover ${DeleteButton} {
     visibility: visible;
   }
-
-  &:hover ${EditButton} {
-    visibility: visible;
-  }
 `;
 
-const Task = ({ task, onClick, editButton }) => {
+const Task = ({ task, onClick }) => {
   return (
     <StyledTask className="task">
       {task}
-      <EditButton onClick={editButton}>
-        <FontAwesomeIcon icon={faPencil} />
-      </EditButton>
       <DeleteButton onClick={onClick}>
         <FontAwesomeIcon icon={faTrash} />
       </DeleteButton>

@@ -95,14 +95,14 @@ function App() {
     event.preventDefault();
 
     const generateId = Math.floor((Math.random() + 1) * 10000);
-    const taskName = taskValue.trim();
+    const label = taskValue.trim();
 
-    if (taskName.length === 0) {
+    if (label.length === 0) {
       return alert("Task cannot be empty");
     }
 
     const updatedList = [...todoList];
-    updatedList.push({ id: generateId, taskName: taskName });
+    updatedList.push({ id: generateId, label: label });
 
     setTodoList(updatedList);
     setTaskValue(""); // Reset the taskValue to an empty string
@@ -118,16 +118,16 @@ function App() {
     const taskIndex = updatedList.findIndex((task) => task.id === id);
 
     if (taskIndex !== -1) {
-      let newTaskName = prompt("Enter the new task name:");
+      let newlabel = prompt("Enter the new task name:");
 
-      if (newTaskName === null) {
+      if (newlabel === null) {
         return alert("Task cannot be empty");
       }
 
-      newTaskName = newTaskName.trim();
+      newlabel = newlabel.trim();
 
-      if (newTaskName.length > 0) {
-        updatedList[taskIndex].taskName = newTaskName;
+      if (newlabel.length > 0) {
+        updatedList[taskIndex].label = newlabel;
         setTodoList(updatedList);
       }
     }
@@ -150,7 +150,7 @@ function App() {
               return (
                 <Task
                   value={taskValue.length !== 0 ? taskValue : ""}
-                  task={task.taskName}
+                  task={task.label}
                   key={task.id}
                   onClick={() => {
                     handleDeleteButton(task.id);
