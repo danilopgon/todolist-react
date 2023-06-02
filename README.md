@@ -1,9 +1,16 @@
 ### todolist-react
+
 # A simple To Do List with React + Styled Components
 
-4 Geeks Academy To Do List project made React + Styled Components
+4 Geeks Academy To Do List project made with React + Styled Components
 
-# Getting Started with Create React App
+## This project has two versions:
+
+### Main branch - With edit functions and more advanced styles
+
+### Fetch branch - Branch to practice Fetch with the [4 Geeks API](http://assets.breatheco.de/apis/fake/todos/)
+
+## Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
