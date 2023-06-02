@@ -5,6 +5,7 @@ import styled from "styled-components";
 import Input from "./components/Input/Input";
 import Task from "./components/Task/Task";
 import TaskCounter from "./components/TaskCounter/TaskCounter";
+import LoadingScreen from "./components/LoadingScreen/LoadingScreen";
 
 const Wrapper = styled.main`
   display: flex;
@@ -47,12 +48,16 @@ const ListContainer = styled.ul`
 function App() {
   const [todoList, setTodoList] = useState([]);
   const [taskValue, setTaskValue] = useState("");
+  const [doneLoading, setDoneLoading] = useState(false);
 
   useEffect(() => {
     fetch("https://assets.breatheco.de/apis/fake/todos/user/danilopgon")
       .then((response) => response.json())
       .then((response) => {
-        return setTodoList(response);
+        setTimeout(() => {
+          setTodoList(response);
+          setDoneLoading(true);
+        }, 3000);
       })
       .catch((error) => {
         //manejo de errores
@@ -116,33 +121,37 @@ function App() {
 
   return (
     <div className="App">
-      <Wrapper>
-        <Box>
-          <Title>
-            {todoList.length > 0 ? "TO DO LIST" : "NO TASKS, ADD A TASK"}
-          </Title>
-          <Input
-            value={taskValue}
-            onSubmit={handleSubmit}
-            onChange={handleUserInput}
-          />
-          <ListContainer>
-            {todoList.map((task, key) => {
-              return (
-                <Task
-                  value={taskValue.length !== 0 ? taskValue : ""}
-                  task={task.label}
-                  key={key}
-                  onClick={() => {
-                    handleDeleteButton(key);
-                  }}
-                />
-              );
-            })}
-          </ListContainer>
-          <TaskCounter taskList={todoList} />
-        </Box>
-      </Wrapper>
+      {!doneLoading ? (
+        <LoadingScreen />
+      ) : (
+        <Wrapper>
+          <Box>
+            <Title>
+              {todoList.length > 0 ? "TO DO LIST" : "NO TASKS, ADD A TASK"}
+            </Title>
+            <Input
+              value={taskValue}
+              onSubmit={handleSubmit}
+              onChange={handleUserInput}
+            />
+            <ListContainer>
+              {todoList.map((task, key) => {
+                return (
+                  <Task
+                    value={taskValue.length !== 0 ? taskValue : ""}
+                    task={task.label}
+                    key={key}
+                    onClick={() => {
+                      handleDeleteButton(key);
+                    }}
+                  />
+                );
+              })}
+            </ListContainer>
+            <TaskCounter taskList={todoList} />
+          </Box>
+        </Wrapper>
+      )}
     </div>
   );
 }
