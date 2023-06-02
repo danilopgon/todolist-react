@@ -57,7 +57,7 @@ function App() {
         setTimeout(() => {
           setTodoList(response);
           setDoneLoading(true);
-        }, 3000);
+        }, 2000);
       })
       .catch((error) => {
         //manejo de errores
