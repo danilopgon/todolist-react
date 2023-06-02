@@ -52,7 +52,6 @@ function App() {
     fetch("https://assets.breatheco.de/apis/fake/todos/user/danilopgon")
       .then((response) => response.json())
       .then((response) => {
-        console.log(response);
         return setTodoList(response);
       })
       .catch((error) => {
@@ -92,45 +91,27 @@ function App() {
   };
 
   const handleSubmit = (event) => {
-    event.preventDefault();
+    try {
+      event.preventDefault();
+      const label = taskValue.trim();
 
-    const generateId = Math.floor((Math.random() + 1) * 10000);
-    const label = taskValue.trim();
-
-    if (label.length === 0) {
-      return alert("Task cannot be empty");
-    }
-
-    const updatedList = [...todoList];
-    updatedList.push({ id: generateId, label: label });
-
-    setTodoList(updatedList);
-    setTaskValue(""); // Reset the taskValue to an empty string
-  };
-
-  const handleDeleteButton = (id) => {
-    const updatedList = todoList.filter((task) => task.id !== id);
-    setTodoList(updatedList);
-  };
-
-  const handleEditButton = (id) => {
-    const updatedList = [...todoList];
-    const taskIndex = updatedList.findIndex((task) => task.id === id);
-
-    if (taskIndex !== -1) {
-      let newlabel = prompt("Enter the new task name:");
-
-      if (newlabel === null) {
+      if (label.length === 0) {
         return alert("Task cannot be empty");
       }
 
-      newlabel = newlabel.trim();
+      const updatedList = [...todoList];
+      updatedList.push({ label: label, done: false });
 
-      if (newlabel.length > 0) {
-        updatedList[taskIndex].label = newlabel;
-        setTodoList(updatedList);
-      }
+      setTodoList(updatedList);
+      setTaskValue(""); // Reset the taskValue to an empty string
+    } catch (error) {
+      alert("Task couldn't be added");
     }
+  };
+
+  const handleDeleteButton = (key) => {
+    const updatedList = todoList.filter((_, index) => index !== key);
+    setTodoList(updatedList);
   };
 
   return (
@@ -146,17 +127,14 @@ function App() {
             onChange={handleUserInput}
           />
           <ListContainer>
-            {todoList.map((task) => {
+            {todoList.map((task, key) => {
               return (
                 <Task
                   value={taskValue.length !== 0 ? taskValue : ""}
                   task={task.label}
-                  key={task.id}
+                  key={key}
                   onClick={() => {
-                    handleDeleteButton(task.id);
-                  }}
-                  editButton={() => {
-                    handleEditButton(task.id);
+                    handleDeleteButton(key);
                   }}
                 />
               );
