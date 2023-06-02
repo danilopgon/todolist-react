@@ -30,7 +30,7 @@ text-fill-color: transparent;
 -webkit-text-fill-color: transparent;
 animation: textclip 2s linear infinite;
 display: inline-block;
-    font-size: 190px;
+    font-size: 3.5rem;
 }
 
 @keyframes textclip {
