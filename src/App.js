@@ -119,11 +119,12 @@ function App() {
     setTodoList(updatedList);
   };
 
+  if (!doneLoading) {
+    return <LoadingScreen />
+  }
+
   return (
     <div className="App">
-      {!doneLoading ? (
-        <LoadingScreen />
-      ) : (
         <Wrapper>
           <Box>
             <Title>
@@ -151,7 +152,6 @@ function App() {
             <TaskCounter taskList={todoList} />
           </Box>
         </Wrapper>
-      )}
     </div>
   );
 }
