@@ -5,6 +5,7 @@ import styled from "styled-components";
 import Input from "./components/Input/Input";
 import Task from "./components/Task/Task";
 import TaskCounter from "./components/TaskCounter/TaskCounter";
+import Alert from "./components/Alert/Alert";
 
 const Wrapper = styled.main`
   display: flex;
@@ -50,6 +51,7 @@ function App() {
     { id: 2, taskName: "Hacer la cena" },
   ]);
   const [taskValue, setTaskValue] = useState("");
+  const [alertOpen, setAlertOpen] = useState(false);
 
   const handleUserInput = (event) => {
     const newTask = event.target.value;
@@ -63,14 +65,17 @@ function App() {
     const taskName = taskValue.trim();
 
     if (taskName.length === 0) {
-      return alert("Task cannot be empty");
+      return setAlertOpen(true);
     }
 
-    const updatedList = [...todoList];
-    updatedList.push({ id: generateId, taskName: taskName });
-
-    setTodoList(updatedList);
-    setTaskValue(""); // Reset the taskValue to an empty string
+    try {
+      const updatedList = [...todoList];
+      updatedList.push({ id: generateId, taskName: taskName });
+      setTodoList(updatedList);
+      setTaskValue("");
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   const handleDeleteButton = (id) => {
@@ -102,9 +107,17 @@ function App() {
     <div className="App">
       <Wrapper>
         <Box>
+          <Alert
+            open={alertOpen ? "open" : ""} // Set the open prop based on the alertOpen state
+            alert="Task cannot be empty"
+            onClick={() => {
+              setAlertOpen(false);
+            }}
+          />
           <Title>
             {todoList.length > 0 ? "TO DO LIST" : "NO TASKS, ADD A TASK"}
           </Title>
+
           <Input
             value={taskValue}
             onSubmit={handleSubmit}
