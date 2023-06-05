@@ -6,6 +6,7 @@ import Input from "./components/Input/Input";
 import Task from "./components/Task/Task";
 import TaskCounter from "./components/TaskCounter/TaskCounter";
 import Alert from "./components/Alert/Alert";
+import Prompt from "./components/Prompt/Prompt";
 
 const Wrapper = styled.main`
   display: flex;
@@ -52,6 +53,8 @@ function App() {
   ]);
   const [taskValue, setTaskValue] = useState("");
   const [alertOpen, setAlertOpen] = useState(false);
+  const [promptOpen, setPromptOpen] = useState(false);
+  const [taskIndex, setTaskIndex] = useState(-1);
 
   const handleUserInput = (event) => {
     const newTask = event.target.value;
@@ -85,21 +88,24 @@ function App() {
 
   const handleEditButton = (id) => {
     const updatedList = [...todoList];
-    const taskIndex = updatedList.findIndex((task) => task.id === id);
+    const editTask = updatedList.findIndex((task) => task.id === id);
 
-    if (taskIndex !== -1) {
-      let newTaskName = prompt("Enter the new task name:");
+    if (editTask !== -1) {
+      setTaskIndex(editTask);
+      setPromptOpen(true);
+    }
+  };
 
-      if (newTaskName === null) {
-        return alert("Task cannot be empty");
-      }
+  const handleEditSubmit = (event) => {
+    event.preventDefault();
+    const newTaskName = taskValue.trim();
+    const updatedList = [...todoList];
 
-      newTaskName = newTaskName.trim();
-
-      if (newTaskName.length > 0) {
-        updatedList[taskIndex].taskName = newTaskName;
-        setTodoList(updatedList);
-      }
+    if (newTaskName.length > 0) {
+      updatedList[taskIndex].taskName = newTaskName;
+      setTodoList(updatedList);
+      setTaskValue("");
+      setPromptOpen(false);
     }
   };
 
@@ -108,10 +114,21 @@ function App() {
       <Wrapper>
         <Box>
           <Alert
-            open={alertOpen ? "open" : ""} // Set the open prop based on the alertOpen state
+            open={alertOpen ? "open" : ""}
             alert="Task cannot be empty"
             onClick={() => {
               setAlertOpen(false);
+            }}
+          />
+          <Prompt
+            name="prompt"
+            open={promptOpen ? "open" : ""}
+            promptText="Write new task"
+            onChange={handleUserInput}
+            value={taskValue}
+            onSubmit={handleEditSubmit}
+            onClick={() => {
+              setPromptOpen(false);
             }}
           />
           <Title>
@@ -119,6 +136,7 @@ function App() {
           </Title>
 
           <Input
+            name="task"
             value={taskValue}
             onSubmit={handleSubmit}
             onChange={handleUserInput}

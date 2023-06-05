@@ -4,11 +4,11 @@ import styled from "styled-components";
 
 const AlertDialog = styled.dialog`
   height: 70vh;
-  width: 70%;
+  width: 80%;
   animation: fadeIn 1s ease both;
   background: rgb(255 255 255 / 40%);
   z-index: 2;
-  backdrop-filter: blur(10px);
+  backdrop-filter: blur(15px);
   display: flex;
   border-radius: 1rem;
   justify-content: center;
@@ -27,7 +27,7 @@ const Title = styled.h2`
   line-height: 2.25rem;
   color: #ffd808;
   text-align: center;
-  width: 80%;
+  width: 100%;
 `;
 
 const CloseButton = styled.button`

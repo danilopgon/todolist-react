@@ -4,11 +4,11 @@ import styled from "styled-components";
 
 const PromptDialog = styled.dialog`
   height: 70vh;
-  width: 70%;
+  width: 80%;
   animation: fadeIn 1s ease both;
   background: rgb(255 255 255 / 40%);
   z-index: 2;
-  backdrop-filter: blur(10px);
+  backdrop-filter: blur(15px);
   display: flex;
   border-radius: 1rem;
   justify-content: center;
@@ -27,7 +27,7 @@ const Title = styled.h2`
   line-height: 2.25rem;
   color: #ffd808;
   text-align: center;
-  width: 80%;
+  width: 100%;
 `;
 
 const PromptForm = styled.form`
@@ -50,7 +50,16 @@ const PromptInput = styled.input`
   line-height: 2rem;
 `;
 
-const Prompt = ({ promptText, open, onChange, value, onSubmit }) => {
+const CloseButton = styled.button`
+  background-color: #ffd808;
+  color: #000;
+  padding: 1rem 2rem;
+  border: none;
+  border-radius: 0.25rem;
+  margin-top: 1rem;
+`;
+
+const Prompt = ({ promptText, open, onChange, value, onSubmit, onClick }) => {
   return (
     <>
       {open && (
@@ -65,6 +74,7 @@ const Prompt = ({ promptText, open, onChange, value, onSubmit }) => {
                 placeholder="What needs to be done?"
               />
             </PromptForm>
+            <CloseButton onClick={onClick}>Cancel</CloseButton>
           </PromptBox>
         </PromptDialog>
       )}
